@@ -1,10 +1,11 @@
 # -*- coding=utf-8 -*-
 
 # 数据解释
-# X_train - 用于训练模型的0.8的真实数据
-# y_train - 训练数据的结果，纵向向量
-# X_test - 用于测试的0.2的真实数据
-# y_test - 测试数据的结果，纵向向量
+# X_train - 用于训练模型的0.8的真实数据，0.8m*n
+# y_train - 训练数据的结果，行向量
+# X_test - 用于测试的0.2的真实数据，0.2m*n
+# y_test - 测试数据的结果，行向量
+# y_predict - 对测试数据的预测结果，行向量
 
 import numpy as np
 
@@ -27,7 +28,7 @@ from sklearn.linear_model import LinearRegression
 linear_regression = LinearRegression()
 linear_regression.fit(X_train,y_train)
 
-# print (linear_regression.coef_)
+# print (linear_regression.coef_)  行向量
 # print (linear_regression.intercept_)
 
 # step4 - 进行预测
@@ -51,5 +52,21 @@ print ("2 使用仿sklearn类构建的模型预测，结果前5个值为：",y_p
 # step5 - 求准确度
 R2 = linear_regression.score(X_test,y_test)
 print ("2 使用仿sklearn类构建的模型预测，R Square值为：",R2)
+
+""" 三 使用梯度下降法实现多元线性回归模型 """
+""" # step3 - 拟合多元线性回归模型
+from linear_regression_class import LinearRegression
+linear_regression = LinearRegression()
+linear_regression.fit_gd(X_train,y_train)
+
+# step4 - 进行预测
+y_predict = linear_regression.predict(X_test)
+print ("3 使用梯度下降法构建的模型预测，结果前5个值为：",y_predict[:5])
+
+# step5 - 求准确度
+R2 = linear_regression.score(X_test,y_test)
+print ("3 使用梯度下降法构建的模型预测，R Square值为：",R2) """
+
+
 
 
