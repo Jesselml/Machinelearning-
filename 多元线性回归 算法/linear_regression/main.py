@@ -22,7 +22,7 @@ y = house['target']
 from sklearn.model_selection import train_test_split
 X_train,X_test,y_train,y_test = train_test_split(X,y,test_size = 0.2,random_state = 66)
 
-""" 一 使用sklearn实现多元线性回归模型 """
+""" 一 使用sklearn实现多元线性回归模型(正规方程拟合) """
 # step3 - 拟合多元线性回归模型
 from sklearn.linear_model import LinearRegression
 linear_regression = LinearRegression()
@@ -39,7 +39,7 @@ print ("1 使用sklearn构建的模型预测，结果前5个值为：",y_predict
 R2 = linear_regression.score(X_test,y_test)
 print ("1 使用sklearn构建的模型预测，R Square值为：",R2)
 
-""" 二 使用仿sklearn下多元线性回归类实现多元线性回归模型 """
+""" 二 使用仿sklearn多元线性回归的类实现多元线性回归模型(正规方程拟合) """
 # step3 - 拟合多元线性回归模型
 from linear_regression_class import LinearRegression
 linear_regression = LinearRegression()
@@ -53,7 +53,7 @@ print ("2 使用仿sklearn类构建的模型预测，结果前5个值为：",y_p
 R2 = linear_regression.score(X_test,y_test)
 print ("2 使用仿sklearn类构建的模型预测，R Square值为：",R2)
 
-""" 三 使用梯度下降法实现多元线性回归模型 """
+""" 三 使用仿sklearn多元线性回归的类实现多元线性回归模型(梯度下降拟合) """
 """ # step3 - 拟合多元线性回归模型
 from linear_regression_class import LinearRegression
 linear_regression = LinearRegression()

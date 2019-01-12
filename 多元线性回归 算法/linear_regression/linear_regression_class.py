@@ -2,13 +2,14 @@ import numpy as np
 
 class LinearRegression():
     def __init__(self):
-        self.coef_ = None
-        self.intercept_ = None
-        self.theta_ = None
+        self.coef_ = None   #系数
+        self.intercept_ = None  #截距
+        self.theta_ = None  #一组theta值 = 截距+系数
 
     def fit(self,X_train,y_train):
         X_b = np.hstack([np.ones(shape = (len(X_train),1)),X_train])
         self.theta_ = np.linalg.inv(X_b.T.dot(X_b)).dot(X_b.T).dot(y_train)
+        #使用正规方程求theta
         self.coef_ = self.theta_[1:]
         self.intercept_ = self.theta_[0]
 
@@ -31,21 +32,19 @@ class LinearRegression():
         def dJ(X_b,y_train,theta):
             res = np.empty(len(theta))
             res[0] = np.sum(X_b.dot(theta) - y_train)  
-            for n in range(1,len(theta)):
-                res[n] = (X_b.dot(theta) - y_train).dot(X_b[:,n])
+            for g in range(1,len(theta)):
+                res[g] = (X_b.dot(theta) - y_train).dot(X_b[:,g])
 
             return res*2/len(X_b) 
 
         def J(X_b,y_train,theta):
-            try:
-                return np.sum((X_b.dot(theta) - y_train)**2) / len(y_train) 
-            except:
-                return float('inf')
+            return np.sum((X_b.dot(theta) - y_train)**2) / len(y_train) 
 
         X_b = np.hstack([np.ones(shape=(len(X_train),1)),X_train])
         initial_theta = np.zeros(X_b.shape[1])
+        #初始化最初的theta为0
         self.theta_ = gradient_descent(X_b,y_train,initial_theta,eta,n_iters)
-
+        #使用梯度下降方法拟合求得最终的theta
         self.intercept_ = self.theta_[0]
         self.coef_ = self.theta_[1:]
 
@@ -70,18 +69,3 @@ class LinearRegression():
 
 # y_predict = linear_regression.predict(np.array([[1,2],[2,3]]))
 # print ("3 使用梯度下降法构建的模型预测，结果前5个值为：",y_predict)
-
-
-
-# import numpy as np
-# np.random.seed(666)
-# x = 2 * np.random.random(size=100)
-# y = x * 3. + 4. + np.random.normal(size=100)
-# X = x.reshape(-1, 1)
-# print (X[:20])
-# print (y[:20])
-# lin_reg = LinearRegression()
-# lin_reg.fit_gd(X, y)
-
-# print ("coef_",lin_reg.coef_)
-# print ("intercept",lin_reg.intercept_)
