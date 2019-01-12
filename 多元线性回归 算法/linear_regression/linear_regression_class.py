@@ -30,7 +30,7 @@ class LinearRegression():
             return theta
 
         def dJ(X_b,y_train,theta):
-            # 以下使用非向量化，即分别对每行求导的方式计算
+            # 1 以下使用非向量化，即分别对每行求导的方式计算
             # res = np.empty(len(theta))
             # res[0] = np.sum(X_b.dot(theta) - y_train)  
             # for g in range(1,len(theta)):
@@ -38,7 +38,7 @@ class LinearRegression():
 
             # return res*2/len(X_b) 
 
-            #  以下用向量化直接求J(theta）的导数
+            #  2 以下用向量化直接求J(theta）的导数
             return X_b.T.dot(X_b.dot(theta)-y_train) * 2 / len(y_train)
 
         def J(X_b,y_train,theta):
