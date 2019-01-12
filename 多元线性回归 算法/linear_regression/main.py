@@ -22,7 +22,7 @@ y = house['target']
 from sklearn.model_selection import train_test_split
 X_train,X_test,y_train,y_test = train_test_split(X,y,test_size = 0.2,random_state = 66)
 
-""" 一 使用sklearn实现多元线性回归模型(正规方程拟合) """
+""" 一 sklearn多元线性回归模型(正规方程拟合) """
 # step3 - 拟合多元线性回归模型
 from sklearn.linear_model import LinearRegression
 linear_regression = LinearRegression()
@@ -33,13 +33,13 @@ linear_regression.fit(X_train,y_train)
 
 # step4 - 进行预测
 y_predict = linear_regression.predict(X_test)
-print ("1 使用sklearn构建的模型预测，结果前5个值为：",y_predict[:5])
+print ("1 sklearn多元线性回归模型(正规方程拟合)预测，结果前5个值为：",y_predict[:5])
 
 # step5 - 求准确度
 R2 = linear_regression.score(X_test,y_test)
-print ("1 使用sklearn构建的模型预测，R Square值为：",R2)
+print ("1 sklearn多元线性回归模型(正规方程拟合)预测，R Square值为：",R2)
 
-""" 二 使用仿sklearn多元线性回归的类实现多元线性回归模型(正规方程拟合) """
+""" 二 仿sklearn类多元线性回归模型(正规方程拟合) """
 # step3 - 拟合多元线性回归模型
 from linear_regression_class import LinearRegression
 linear_regression = LinearRegression()
@@ -47,25 +47,31 @@ linear_regression.fit(X_train,y_train)
 
 # step4 - 进行预测
 y_predict = linear_regression.predict(X_test)
-print ("2 使用仿sklearn类构建的模型预测，结果前5个值为：",y_predict[:5])
+print ("2 仿sklearn类多元线性回归模型(正规方程拟合)预测，结果前5个值为：",y_predict[:5])
 
 # step5 - 求准确度
 R2 = linear_regression.score(X_test,y_test)
-print ("2 使用仿sklearn类构建的模型预测，R Square值为：",R2)
+print ("2 仿sklearn类多元线性回归模型(正规方程拟合)预测，R Square值为：",R2)
 
-""" 三 使用仿sklearn多元线性回归的类实现多元线性回归模型(梯度下降拟合) """
-""" # step3 - 拟合多元线性回归模型
+""" 三 仿sklearn类多元线性回归模型(梯度下降拟合) """
+# step3 - 数据进行归一化预处理
+from sklearn.preprocessing import StandardScaler
+standard_scaler = StandardScaler()
+standard_scaler.fit(X_train)
+X_train = standard_scaler.transform(X_train)
+
+# step4 - 拟合多元线性回归模型
 from linear_regression_class import LinearRegression
 linear_regression = LinearRegression()
 linear_regression.fit_gd(X_train,y_train)
 
-# step4 - 进行预测
+# step5 - 进行预测
 y_predict = linear_regression.predict(X_test)
-print ("3 使用梯度下降法构建的模型预测，结果前5个值为：",y_predict[:5])
+print ("3 仿sklearn类多元线性回归模型(梯度下降拟合)预测，结果前5个值为：",y_predict[:5])
 
-# step5 - 求准确度
+# step6 - 求准确度
 R2 = linear_regression.score(X_test,y_test)
-print ("3 使用梯度下降法构建的模型预测，R Square值为：",R2) """
+print ("3 仿sklearn类多元线性回归模型(梯度下降拟合)预测，R Square值为：",R2)
 
 
 

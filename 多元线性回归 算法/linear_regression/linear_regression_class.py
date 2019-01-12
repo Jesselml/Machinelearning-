@@ -16,10 +16,10 @@ class LinearRegression():
         return self
 
     def fit_gd(self,X_train,y_train,eta = 0.01,n_iters = 1e4):
-        def gradient_descent(X_b,y_train,theta,eta,n_iters=1e4,epsilon=1e-8):
+        def gradient_descent(X_b,y_train,initial_theta,eta,n_iters=1e4,epsilon=1e-8):
             cur_iter = 0
             theta = initial_theta
-            while (cur_iter < 5):
+            while (cur_iter < n_iters):
                 gradient = dJ(X_b,y_train,theta)
                 last_theta = theta
                 theta = theta - eta * gradient
@@ -30,12 +30,16 @@ class LinearRegression():
             return theta
 
         def dJ(X_b,y_train,theta):
-            res = np.empty(len(theta))
-            res[0] = np.sum(X_b.dot(theta) - y_train)  
-            for g in range(1,len(theta)):
-                res[g] = (X_b.dot(theta) - y_train).dot(X_b[:,g])
+            # 以下使用非向量化，即分别对每行求导的方式计算
+            # res = np.empty(len(theta))
+            # res[0] = np.sum(X_b.dot(theta) - y_train)  
+            # for g in range(1,len(theta)):
+            #     res[g] = (X_b.dot(theta) - y_train).dot(X_b[:,g])
 
-            return res*2/len(X_b) 
+            # return res*2/len(X_b) 
+
+            #  以下用向量化直接求J(theta）的导数
+            return X_b.T.dot(X_b.dot(theta)-y_train) * 2 / len(y_train)
 
         def J(X_b,y_train,theta):
             return np.sum((X_b.dot(theta) - y_train)**2) / len(y_train) 
@@ -61,11 +65,19 @@ class LinearRegression():
     def __repr__(self):
         return "LinearRegression()"
 
-# X_train = np.array([[1,1],[2,2],[3,3],[4,4],[5,5],[6,6]])
-# y_train = np.array([6,10,14,18,22,26])
+""" # theta 1 2 2
+X_train = np.array([[1,1],[2,2],[3,3],[4,4],[5,5],[6,6]])
+y_train = np.array([5,9,13,17,21,25])
 
-# linear_regression = LinearRegression()
-# linear_regression.fit_gd(X_train,y_train)
+linear_regression = LinearRegression()
+print (X_train.shape)
+print (y_train.shape)
 
-# y_predict = linear_regression.predict(np.array([[1,2],[2,3]]))
-# print ("3 使用梯度下降法构建的模型预测，结果前5个值为：",y_predict)
+linear_regression.fit_gd(X_train,y_train)
+
+y_predict = linear_regression.predict(np.array([[1,2],[2,3]]))
+# 7   11
+print ("3 使用梯度下降法构建的模型预测，结果前5个值为：",y_predict)
+ """
+
+
